@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:red_eyes_app/screens/home_screen.dart';
-import 'package:red_eyes_app/screens/login_screen.dart';
+import 'package:red_eyes_app/theme/theme.dart';
+//views
+import 'package:red_eyes_app/features/login/login.dart';
+import 'package:red_eyes_app/features/home/home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,16 +11,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            color: Colors.black, // Тут указываем нужный цвет фона по умолчанию
-          ),
-          primaryColor: Colors.red,
-          brightness: Brightness.dark,
-          scaffoldBackgroundColor: Colors.black),
+      theme: AppTheme.darkTheme,
       routes: {
-        "/": (context) => const LoginScreen(),
-        "/home": (context) => const HomeScreen(),
+        "/login": (context) => const LoginScreen(),
+        "/": (context) => const HomeScreen(),
       },
       initialRoute: "/",
     );
