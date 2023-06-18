@@ -138,51 +138,97 @@ class _LoginFormInputWidget extends StatelessWidget {
           obscureText: true,
         ),
         const SizedBox(height: 25),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () async {
-                const url = "https://joinpeertube.org/";
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                  side: BorderSide(color: Theme.of(context).primaryColor),
-                ),
-              ),
-              child: Text('Sign up',
-                  style: TextStyle(
-                      fontSize: 16, color: Theme.of(context).primaryColor)),
-            ),
-            SizedBox(width: 20),
-            TextButton(
-              onPressed: () {
-                // действие по нажатию кнопки Sign in
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                ),
-              ),
-              child: Text('Sign in',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).scaffoldBackgroundColor)),
-            ),
-          ],
-        )
+        _LogginButtonsWidget(
+            hostController: _hostController,
+            loginController: _loginController,
+            passwordController: _passwordController)
       ],
     );
+  }
+}
+
+class _LogginButtonsWidget extends StatefulWidget {
+  const _LogginButtonsWidget({
+    super.key,
+    required TextEditingController hostController,
+    required TextEditingController loginController,
+    required TextEditingController passwordController,
+  })  : _hostController = hostController,
+        _loginController = loginController,
+        _passwordController = passwordController;
+
+  final TextEditingController _hostController;
+  final TextEditingController _loginController;
+  final TextEditingController _passwordController;
+
+  @override
+  State<_LogginButtonsWidget> createState() => _LogginButtonsWidgetState();
+}
+
+class _LogginButtonsWidgetState extends State<_LogginButtonsWidget> {
+  bool _isLoading = false;
+
+  void _startLoading() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    Future.delayed(Duration(seconds: 3)).then((_) {
+      setState(() {
+        _isLoading = false;
+        Navigator.pushNamed(context, '/home');
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? CircularProgressIndicator(color: Theme.of(context).primaryColor)
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  const url = "https://joinpeertube.org/";
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                    side: BorderSide(color: Theme.of(context).primaryColor),
+                  ),
+                ),
+                child: Text('Sign up',
+                    style: TextStyle(
+                        fontSize: 16, color: Theme.of(context).primaryColor)),
+              ),
+              const SizedBox(width: 20),
+              TextButton(
+                onPressed: () async {
+                  _startLoading();
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
+                child: Text('Sign in',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).scaffoldBackgroundColor)),
+              ),
+            ],
+          );
   }
 }
