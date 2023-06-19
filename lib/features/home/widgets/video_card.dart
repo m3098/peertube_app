@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:red_eyes_app/untinl/super_function.dart';
+import 'package:rive/rive.dart';
 
 class VideoCard extends StatelessWidget {
-  const VideoCard({
-    super.key,
-  });
-
+  const VideoCard(
+      {super.key,
+      required this.previewUrl,
+      required this.duration,
+      required this.title,
+      required this.channelName,
+      required this.date,
+      required this.viewCount,
+      required this.channelAvatarUrl});
+  final String previewUrl;
+  final String channelAvatarUrl;
+  final int duration;
+  final String title;
+  final String channelName;
+  final DateTime date;
+  final int viewCount;
   @override
   Widget build(BuildContext context) {
-    return const Card(
+    return Card(
       child: Column(
         children: [
-          _VideoPreview(),
+          _VideoPreview(
+            previewUrl: previewUrl,
+            duration: duration,
+          ),
           SizedBox(
             height: 12,
           ),
-          _VideoInfo(),
+          _VideoInfo(
+              channelAvatarUrl: channelAvatarUrl,
+              title: title,
+              channelName: channelName,
+              date: date,
+              viewCount: viewCount),
           SizedBox(
             height: 6,
           ),
@@ -25,7 +47,10 @@ class VideoCard extends StatelessWidget {
 }
 
 class _VideoPreview extends StatelessWidget {
-  const _VideoPreview();
+  const _VideoPreview({required this.previewUrl, required this.duration});
+
+  final String previewUrl;
+  final int duration;
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +59,23 @@ class _VideoPreview extends StatelessWidget {
       children: [
         AspectRatio(
           aspectRatio: 16 / 9,
-          child: Container(
-            color: Colors.grey.withOpacity(0.5),
-            child: const Center(
-              child: Text('Video Player'),
-            ),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return SizedBox(
+                width: constraints.maxWidth,
+                child: Image.network(
+                  previewUrl,
+                  fit: BoxFit.contain,
+                ),
+              );
+            },
           ),
         ),
         Container(
           color: Colors.black.withOpacity(0.5),
-          child: const Padding(
-            padding: EdgeInsets.all(4.0),
-            child: Text("13:37"),
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(SuperFunction.convertDurationToText(duration)),
           ),
         )
       ],
@@ -54,8 +84,17 @@ class _VideoPreview extends StatelessWidget {
 }
 
 class _VideoInfo extends StatelessWidget {
-  const _VideoInfo();
-
+  const _VideoInfo(
+      {required this.title,
+      required this.channelName,
+      required this.date,
+      required this.viewCount,
+      required this.channelAvatarUrl});
+  final String channelAvatarUrl;
+  final String title;
+  final String channelName;
+  final DateTime date;
+  final int viewCount;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,34 +104,42 @@ class _VideoInfo extends StatelessWidget {
           Container(
             width: 50,
             height: 50,
-            color: Colors.green,
+            child: channelAvatarUrl.isNotEmpty
+                ? Image.network(
+                    channelAvatarUrl,
+                  )
+                : RiveAnimation.asset(
+                    "assets/animations/eye.riv",
+                    fit: BoxFit.contain,
+                  ),
           ),
           const SizedBox(
             width: 12,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Title of Video ',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              const Text(
-                'Channel Name - views - date',
-                style: TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
           Expanded(
-            child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.more_horiz_outlined))),
-          )
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "$title",
+                  style: Theme.of(context).textTheme.titleMedium,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "$channelName - $viewCount views - ${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')}",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.more_horiz_outlined)))
         ],
       ),
     );
