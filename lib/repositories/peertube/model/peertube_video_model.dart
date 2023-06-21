@@ -1,4 +1,6 @@
-class PeertubeVideoModel {
+import 'package:equatable/equatable.dart';
+
+class PeertubeVideoModel extends Equatable {
   PeertubeVideoModel(
       {required this.previewUrl,
       required this.channelAvatarUrl,
@@ -15,4 +17,16 @@ class PeertubeVideoModel {
   final DateTime date;
   final int duration;
   final int viewCount;
+
+  @override
+  List<Object?> get props => [
+        previewUrl,
+        channelAvatarUrl,
+        title,
+        channelName,
+        channelName,
+        date,
+        duration,
+        viewCount
+      ];
 }

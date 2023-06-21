@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
@@ -90,8 +92,11 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             if (state is HomeLoaded) {
               return RefreshIndicator(
+                color: Theme.of(context).primaryColor,
                 onRefresh: () async {
-                  _blocHomeScreen.add(LoadVideoList());
+                  final completer = Completer();
+                  _blocHomeScreen.add(LoadVideoList(completer: completer));
+                  return completer.future;
                 },
                 child: ListView.builder(
                   itemCount: state.videoList.length,
