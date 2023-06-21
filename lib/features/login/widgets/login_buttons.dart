@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../anim_widgets/anim_loading_widget.dart';
 
 class LoginButtons extends StatefulWidget {
   const LoginButtons({super.key});
@@ -16,7 +17,7 @@ class _LoginButtonsState extends State<LoginButtons> {
       _isLoading = true;
     });
 
-    Future.delayed(Duration(seconds: 3)).then((_) {
+    Future.delayed(const Duration(seconds: 10)).then((_) {
       setState(() {
         _isLoading = false;
         Navigator.pop(context);
@@ -27,9 +28,7 @@ class _LoginButtonsState extends State<LoginButtons> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(
-            child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor))
+        ? const Center(child: AnimLoadingWidget())
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

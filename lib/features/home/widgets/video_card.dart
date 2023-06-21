@@ -28,7 +28,7 @@ class VideoCard extends StatelessWidget {
             previewUrl: previewUrl,
             duration: duration,
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           _VideoInfo(
@@ -37,7 +37,7 @@ class VideoCard extends StatelessWidget {
               channelName: channelName,
               date: date,
               viewCount: viewCount),
-          SizedBox(
+          const SizedBox(
             height: 6,
           ),
         ],
@@ -101,14 +101,14 @@ class _VideoInfo extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: 50,
             height: 50,
             child: channelAvatarUrl.isNotEmpty
                 ? Image.network(
                     channelAvatarUrl,
                   )
-                : RiveAnimation.asset(
+                : const RiveAnimation.asset(
                     "assets/animations/eye.riv",
                     fit: BoxFit.contain,
                   ),
@@ -121,7 +121,7 @@ class _VideoInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "$title",
+                  title,
                   style: Theme.of(context).textTheme.titleMedium,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

@@ -39,6 +39,7 @@ dependencies:
   rive: 0.9.1
   url_launcher: ^6.1.11
   dio: ^5.2.1+1
+  flutter_bloc: ^8.1.3
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +59,8 @@ dev_dependencies:
 flutter:
   assets:
     - assets/animations/eye.riv
+    - assets/animations/wait.riv
+    - assets/animations/doomer.riv
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

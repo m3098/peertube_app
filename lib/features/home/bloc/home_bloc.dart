@@ -1,0 +1,22 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:red_eyes_app/repositories/peertube/model/peertube_video_model.dart';
+import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
+
+part 'home_event.dart';
+part 'home_state.dart';
+
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  final PeertubeRepository peertubeRepository;
+
+  HomeBloc(this.peertubeRepository) : super(HomeInitial()) {
+    on<HomeEvent>((event, emit) async {
+      emit(HomeLoading());
+      try {
+        final videoList = await peertubeRepository.getVideoList();
+        emit(HomeLoaded(videoList: videoList));
+      } catch (e) {
+        emit(HomeLoadingFailed(exception: e));
+      }
+    });
+  }
+}

@@ -62,5 +62,5 @@ class AppTheme {
         labelStyle: TextStyle(color: Colors.red),
       ),
       textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.red),
-      appBarTheme: AppBarTheme());
+      appBarTheme: const AppBarTheme());
 }
