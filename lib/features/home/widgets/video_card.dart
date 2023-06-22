@@ -5,15 +5,15 @@ import 'package:rive/rive.dart';
 class VideoCard extends StatelessWidget {
   const VideoCard(
       {super.key,
-      required this.previewUrl,
+      required this.previewPath,
       required this.duration,
       required this.title,
       required this.channelName,
       required this.date,
       required this.viewCount,
-      required this.channelAvatarUrl});
-  final String previewUrl;
-  final String channelAvatarUrl;
+      required this.channelAvatarPath});
+  final String previewPath;
+  final String channelAvatarPath;
   final int duration;
   final String title;
   final String channelName;
@@ -25,14 +25,14 @@ class VideoCard extends StatelessWidget {
       child: Column(
         children: [
           _VideoPreview(
-            previewUrl: previewUrl,
+            previewPath: previewPath,
             duration: duration,
           ),
           const SizedBox(
             height: 12,
           ),
           _VideoInfo(
-              channelAvatarUrl: channelAvatarUrl,
+              channelAvatarPath: channelAvatarPath,
               title: title,
               channelName: channelName,
               date: date,
@@ -47,9 +47,9 @@ class VideoCard extends StatelessWidget {
 }
 
 class _VideoPreview extends StatelessWidget {
-  const _VideoPreview({required this.previewUrl, required this.duration});
+  const _VideoPreview({required this.previewPath, required this.duration});
 
-  final String previewUrl;
+  final String previewPath;
   final int duration;
 
   @override
@@ -64,7 +64,7 @@ class _VideoPreview extends StatelessWidget {
               return SizedBox(
                 width: constraints.maxWidth,
                 child: Image.network(
-                  previewUrl,
+                  "https://peertube.su$previewPath",
                   fit: BoxFit.contain,
                 ),
               );
@@ -89,8 +89,8 @@ class _VideoInfo extends StatelessWidget {
       required this.channelName,
       required this.date,
       required this.viewCount,
-      required this.channelAvatarUrl});
-  final String channelAvatarUrl;
+      required this.channelAvatarPath});
+  final String channelAvatarPath;
   final String title;
   final String channelName;
   final DateTime date;
@@ -104,9 +104,9 @@ class _VideoInfo extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: channelAvatarUrl.isNotEmpty
+            child: channelAvatarPath != null
                 ? Image.network(
-                    channelAvatarUrl,
+                    "https://peertube.su$channelAvatarPath",
                   )
                 : const RiveAnimation.asset(
                     "assets/animations/eye.riv",

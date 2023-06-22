@@ -17,7 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _blocHomeScreen = HomeBloc(PeertubeRepository());
+  final _blocHomeScreen =
+      HomeBloc(PeertubeRepository(hostName: "peertube.su", apiVersion: "v1"));
 
   @override
   void initState() {
@@ -103,13 +104,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     final videoData = state.videoList[index];
                     return VideoCard(
-                        previewUrl: videoData.previewUrl,
-                        channelAvatarUrl: videoData.channelAvatarUrl,
-                        duration: videoData.duration,
-                        title: videoData.title,
-                        channelName: videoData.channelName,
-                        date: videoData.date,
-                        viewCount: videoData.viewCount);
+                        previewPath: videoData.previewPath ?? "",
+                        channelAvatarPath:
+                            videoData.channel?.avatar["path"] ?? "",
+                        duration: videoData.duration ?? 0,
+                        title: videoData.name ?? "",
+                        channelName: videoData.account?.displayName ?? "",
+                        date: videoData.publishedAt ?? DateTime(0),
+                        viewCount: videoData.views ?? 0);
                   },
                 ),
               );
