@@ -1,42 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:red_eyes_app/repositories/peertube/model/peertube_video_card_model.dart';
 import 'package:red_eyes_app/untinl/super_function.dart';
-import 'package:rive/rive.dart';
 
 class VideoCard extends StatelessWidget {
-  const VideoCard(
-      {super.key,
-      required this.previewPath,
-      required this.duration,
-      required this.title,
-      required this.channelName,
-      required this.date,
-      required this.viewCount,
-      required this.channelAvatarPath});
-  final String previewPath;
-  final String channelAvatarPath;
-  final int duration;
-  final String title;
-  final String channelName;
-  final DateTime date;
-  final int viewCount;
+  const VideoCard({super.key, required this.cardModell});
+  final PeertubeVideoCardModel cardModell;
+
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: [
           _VideoPreview(
-            previewPath: previewPath,
-            duration: duration,
+            previewPath: cardModell.previewPath as String,
+            duration: cardModell.duration as int,
           ),
           const SizedBox(
             height: 12,
           ),
           _VideoInfo(
-              channelAvatarPath: channelAvatarPath,
-              title: title,
-              channelName: channelName,
-              date: date,
-              viewCount: viewCount),
+              channelAvatarPath:
+                  cardModell.channel?.avatar["path"] ?? "" as String,
+              title: cardModell.name as String,
+              channelName: cardModell.channel?.name as String,
+              date: cardModell.createdAt as DateTime,
+              viewCount: cardModell.views as int),
           const SizedBox(
             height: 6,
           ),
@@ -104,14 +92,13 @@ class _VideoInfo extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: channelAvatarPath != null
+            child: channelAvatarPath.isNotEmpty
                 ? Image.network(
                     "https://peertube.su$channelAvatarPath",
                   )
-                : const RiveAnimation.asset(
-                    "assets/animations/eye.riv",
-                    fit: BoxFit.contain,
-                  ),
+                : const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Center(child: Text("no avatar"))),
           ),
           const SizedBox(
             width: 12,

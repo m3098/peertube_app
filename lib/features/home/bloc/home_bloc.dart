@@ -9,9 +9,10 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final PeertubeRepository peertubeRepository;
+  final PeertubeRepository peertubeRepository =
+      PeertubeRepository(hostName: "peertube.su", apiVersion: "v1");
 
-  HomeBloc(this.peertubeRepository) : super(HomeInitial()) {
+  HomeBloc() : super(HomeInitial()) {
     on<LoadVideoList>((event, emit) async {
       if (state is! HomeLoaded) {
         emit(HomeLoading());

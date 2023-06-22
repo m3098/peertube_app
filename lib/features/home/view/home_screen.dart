@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
+import 'package:red_eyes_app/repositories/peertube/model/models.dart';
 import 'package:rive/rive.dart';
 import '..//widgets/widgets.dart';
 
@@ -17,8 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _blocHomeScreen =
-      HomeBloc(PeertubeRepository(hostName: "peertube.su", apiVersion: "v1"));
+  final _blocHomeScreen = HomeBloc();
 
   @override
   void initState() {
@@ -102,16 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                   itemCount: state.videoList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final videoData = state.videoList[index];
                     return VideoCard(
-                        previewPath: videoData.previewPath ?? "",
-                        channelAvatarPath:
-                            videoData.channel?.avatar["path"] ?? "",
-                        duration: videoData.duration ?? 0,
-                        title: videoData.name ?? "",
-                        channelName: videoData.account?.displayName ?? "",
-                        date: videoData.publishedAt ?? DateTime(0),
-                        viewCount: videoData.views ?? 0);
+                      cardModell: state.videoList[index],
+                    );
                   },
                 ),
               );

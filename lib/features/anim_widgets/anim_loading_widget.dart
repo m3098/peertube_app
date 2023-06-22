@@ -18,7 +18,7 @@ class AnimLoadingWidget extends StatelessWidget {
         ),
         Text(
           "wait...",
-          style: const TextStyle(
+          style: TextStyle(
               color: Colors.red, fontWeight: FontWeight.w500, letterSpacing: 2),
         ),
       ],
