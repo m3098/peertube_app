@@ -19,8 +19,7 @@ class VideoCard extends StatelessWidget {
             height: 12,
           ),
           _VideoInfo(
-              channelAvatarPath:
-                  cardModell.channel?.avatar["path"] ?? "" as String,
+              channelAvatarPath: cardModell.channel?.avatar["path"] ?? "",
               title: cardModell.name as String,
               channelName: cardModell.channel?.name as String,
               date: cardModell.createdAt as DateTime,
@@ -47,16 +46,21 @@ class _VideoPreview extends StatelessWidget {
       children: [
         AspectRatio(
           aspectRatio: 16 / 9,
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return SizedBox(
-                width: constraints.maxWidth,
-                child: Image.network(
-                  "https://peertube.su$previewPath",
-                  fit: BoxFit.contain,
-                ),
-              );
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/videos");
             },
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                return SizedBox(
+                  width: constraints.maxWidth,
+                  child: Image.network(
+                    "https://peertube.su$previewPath",
+                    fit: BoxFit.contain,
+                  ),
+                );
+              },
+            ),
           ),
         ),
         Container(

@@ -43,6 +43,12 @@ dependencies:
   equatable: ^2.0.5
   json_annotation: ^4.8.1
 
+
+  appinio_video_player: ^1.2.1
+
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

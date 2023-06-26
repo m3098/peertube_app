@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:red_eyes_app/features/video/view/video_screen.dart';
 import 'package:red_eyes_app/theme/theme.dart';
 //views
 import 'package:red_eyes_app/features/login/login.dart';
@@ -10,13 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RED EYE APP',
       theme: AppTheme.darkTheme,
       routes: {
         "/login": (context) => const LoginScreen(),
         "/": (context) => HomeScreen(),
+        "/video": (context) => VideoScreen(),
       },
-      initialRoute: "/",
+      initialRoute: "/video",
     );
   }
 }
