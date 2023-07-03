@@ -1,15 +1,19 @@
 import 'dart:async';
 
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
 import 'package:red_eyes_app/repositories/peertube/model/models.dart';
+import 'package:red_eyes_app/router/router.dart';
 import 'package:rive/rive.dart';
 import '..//widgets/widgets.dart';
 
 import '../../anim_widgets/anim_widgets.dart';
 import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
 
+@RoutePage()
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
@@ -39,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: const Icon(Icons.account_circle),
               onPressed: () {
-                Navigator.pushNamed(context, "/login");
+                AutoRouter.of(context).push(LoginRoute());
               },
             ),
             IconButton(

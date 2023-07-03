@@ -1,7 +1,9 @@
-import 'package:appinio_video_player/appinio_video_player.dart';
-import 'package:flutter/foundation.dart';
+import 'package:auto_route/annotations.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
+@RoutePage()    
 class VideoScreen extends StatefulWidget {
   VideoScreen({super.key});
 
@@ -10,33 +12,18 @@ class VideoScreen extends StatefulWidget {
 }
 
 class _VideoScreenState extends State<VideoScreen> {
-  late VideoPlayerController videoPlayerController720,
-      videoPlayerController1080;
-  late CustomVideoPlayerController customVideoPlayerController;
-
-  final CustomVideoPlayerSettings customVideoPlayerSettings =
-      const CustomVideoPlayerSettings();
-
+  final String videoUrl =
+      "https://videos.redeyes.site/static/streaming-playlists/hls/78aecfd0-4726-4856-b214-346387599e60/2738f075-7eff-4d65-8037-0e09a26757d4-master.m3u8";
+  late ChewieController _chewieController;
   @override
   void initState() {
     super.initState();
-    videoPlayerController720 = VideoPlayerController.network(video720)
-      ..initialize().then((value) => setState(() {}));
-    videoPlayerController1080 = VideoPlayerController.network(video1080);
-
-    customVideoPlayerController = CustomVideoPlayerController(
-        context: context,
-        videoPlayerController: videoPlayerController720,
-        customVideoPlayerSettings: customVideoPlayerSettings,
-        additionalVideoSources: {
-          "720": videoPlayerController720,
-          "1080": videoPlayerController1080
-        });
+    _chewieController = ChewieController(
+        videoPlayerController: VideoPlayerController.network(videoUrl));
   }
 
   @override
   void dispose() {
-    customVideoPlayerController.dispose();
     super.dispose();
   }
 
@@ -47,8 +34,11 @@ class _VideoScreenState extends State<VideoScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            CustomVideoPlayer(
-              customVideoPlayerController: customVideoPlayerController,
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Chewie(
+                controller: _chewieController,
+              ),
             ),
             TextButton(
               onPressed: () {},
@@ -211,13 +201,3 @@ class _VideoScreenState extends State<VideoScreen> {
     );
   }
 }
-
-String videoUrl =
-    'https://peertube.su/static/streaming-playlists/hls/57135a41-5088-4ed6-b636-c567b651f82f/57135a41-5088-4ed6-b636-c567b651f82f-720-fragmented.mp4';
-String longVideo =
-    'https://peertube.su/static/streaming-playlists/hls/57135a41-5088-4ed6-b636-c567b651f82f/57135a41-5088-4ed6-b636-c567b651f82f-720-fragmented.mp4';
-
-String video720 =
-    "https://peertube.su/static/streaming-playlists/hls/57135a41-5088-4ed6-b636-c567b651f82f/57135a41-5088-4ed6-b636-c567b651f82f-720-fragmented.mp4";
-String video1080 =
-    "https://peertube.su/static/streaming-playlists/hls/57135a41-5088-4ed6-b636-c567b651f82f/57135a41-5088-4ed6-b636-c567b651f82f-1080-fragmented.mp4";

@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:red_eyes_app/repositories/peertube/model/peertube_video_card_model.dart';
+import 'package:red_eyes_app/router/router.dart';
 import 'package:red_eyes_app/untinl/super_function.dart';
 
 class VideoCard extends StatelessWidget {
@@ -48,7 +50,8 @@ class _VideoPreview extends StatelessWidget {
           aspectRatio: 16 / 9,
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, "/videos");
+              AutoRouter.of(context).push(VideoRoute());
+              ;
             },
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

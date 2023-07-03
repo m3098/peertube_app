@@ -9,11 +9,11 @@ part of 'peertube_account_short_model.dart';
 PeertubeAccountShortModel _$PeertubeAccountShortModelFromJson(
         Map<String, dynamic> json) =>
     PeertubeAccountShortModel(
-      id: json['id'] as int,
-      displayName: json['displayName'] as String,
-      name: json['name'] as String,
-      url: json['url'] as String,
-      host: json['host'] as String,
+      id: json['id'] as int?,
+      displayName: json['displayName'] as String?,
+      name: json['name'] as String?,
+      url: json['url'] as String?,
+      host: json['host'] as String?,
       avatar: json['avatar'] as Map<String, dynamic>? ?? const {},
     );
 
