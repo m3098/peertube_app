@@ -42,7 +42,7 @@ class AppTheme {
           fontWeight: FontWeight.w200,
           fontSize: 12.0,
           letterSpacing: 0.4,
-        ),
+        ), //test
       ),
       inputDecorationTheme: const InputDecorationTheme(
         hintStyle: TextStyle(color: Colors.red),
