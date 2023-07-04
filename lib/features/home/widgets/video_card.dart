@@ -67,10 +67,10 @@ class _VideoPreview extends StatelessWidget {
           ),
         ),
         Container(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withOpacity(0.8),
           child: Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Text(SuperFunction.convertDurationToText(duration)),
+            child: Text(SuperFunction.convertDuration(duration)),
           ),
         )
       ],

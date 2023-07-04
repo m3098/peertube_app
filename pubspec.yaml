@@ -48,6 +48,7 @@ dependencies:
   chewie: ^1.5.0
   video_player: ^2.7.0
   auto_route: ^7.6.0
+  get_it: ^7.6.0
 
 
 
