@@ -10,3 +10,11 @@ class LoadVideoList extends HomeEvent {
   @override
   List<Object?> get props => [completer];
 }
+
+class AddVideoInList extends HomeEvent {
+  final int startIndex;
+
+  AddVideoInList({required this.startIndex});
+  @override
+  List<Object?> get props => [startIndex];
+}

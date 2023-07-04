@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
+
 import 'package:rive/rive.dart';
 
 import '../bloc/home_bloc.dart';
 
 class ErrorPage extends StatelessWidget {
-  const ErrorPage({super.key});
+  const ErrorPage({super.key, required this.callback, required this.errorText});
+  final Function callback;
+  final String errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +17,13 @@ class ErrorPage extends StatelessWidget {
         const SizedBox(
             height: 250,
             child: RiveAnimation.asset("assets/animations/doomer.riv")),
-        const Text("Oops! ERRRRRRRRRRRORR :("),
+        Text(
+          "Oops! $errorText",
+          textAlign: TextAlign.center,
+        ),
         const SizedBox(height: 25),
         TextButton(
-          onPressed: () {
-            BlocProvider.of<HomeBloc>(context).add(LoadVideoList());
-          },
+          onPressed: () => callback(),
           style: TextButton.styleFrom(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),

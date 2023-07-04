@@ -3,30 +3,37 @@ import 'model/models.dart';
 import 'abstract_peertube_repository.dart';
 
 class PeertubeRepository extends AbstractPeertubeRepository {
-  final String hostName;
-  final String apiVersion;
+  String hostName;
+  String apiVersion;
 
   PeertubeRepository({required this.hostName, required this.apiVersion});
 
   @override
-  Future<List<PeertubeVideoCardModel>> getVideos({
-    String? categoryOneOf,
-    int? count,
-    bool? excludeAlreadyWatched = false,
-    bool? hasHLSFiles = false,
-    bool? hasWebtorrentFiles = false,
-    bool? isLive = false,
-    bool? isLocal = false,
-    String? languageOneOf,
-    int? licenceOneOf,
-    bool? nsfw = false,
-    String? sort,
-    int? start,
-    List<String>? tagsAllOf,
-    List<String>? tagsOneOf,
-  }) async {
-    final response =
-        await Dio().get("https://$hostName/api/$apiVersion/videos");
+  Future<List<PeertubeVideoCardModel>> getVideos(
+      {int categoryOneOf = 100,
+      int count = 15,
+      bool excludeAlreadyWatched = true,
+      bool hasHLSFiles = true,
+      bool isLive = false,
+      bool isLocal = false,
+      bool nsfw = false,
+      int start = 0,
+      List<String> tagsOneOf = const []}) async {
+    // ignore: prefer_interpolation_to_compose_strings
+    String url = "https://$hostName/api/$apiVersion/videos?" +
+        "count=$count" +
+        // "&excludeAlreadyWatched=$excludeAlreadyWatched" +
+        "&hasHLSFiles=$hasHLSFiles" +
+        "&isLive=$isLive" +
+        "&isLocal=$isLocal" +
+        "&nsfw=$nsfw" +
+        "&start=$start";
+    if (tagsOneOf.isNotEmpty) {
+      for (var element in tagsOneOf) {
+        url += "&tagsOneOf=$element";
+      }
+    }
+    final response = await Dio().get(url);
     final data = response.data["data"] as List<dynamic>;
 
     final videoList = data.map((json) {

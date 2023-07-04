@@ -14,11 +14,12 @@ class HomeLoading extends HomeState {
 
 class HomeLoaded extends HomeState {
   final List<PeertubeVideoCardModel> videoList;
+  final bool isLoadingMoreVideos;
 
-  HomeLoaded({required this.videoList});
+  HomeLoaded({required this.videoList, required this.isLoadingMoreVideos});
 
   @override
-  List<Object?> get props => [videoList];
+  List<Object?> get props => [videoList, isLoadingMoreVideos];
 }
 
 class HomeLoadingFailed extends HomeState {

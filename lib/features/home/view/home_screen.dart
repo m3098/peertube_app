@@ -15,20 +15,7 @@ import '../../anim_widgets/anim_widgets.dart';
 import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<HomeBloc>(context).add(LoadVideoList());
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,13 +40,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
+            if (state is HomeInitial) {
+              BlocProvider.of<HomeBloc>(context).add(LoadVideoList());
+            }
             if (state is HomeLoading) {
               return const Center(
                 child: AnimLoadingWidget(),
               );
             }
             if (state is HomeLoadingFailed) {
-              return ErrorPage();
+              return ErrorPage(
+                errorText: state.exception.toString(),
+                callback: () =>
+                    BlocProvider.of<HomeBloc>(context).add(LoadVideoList()),
+              );
             }
             if (state is HomeLoaded) {
               return RefreshIndicator(
@@ -71,11 +65,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   return completer.future;
                 },
                 child: ListView.builder(
-                  itemCount: state.videoList.length,
+                  itemCount: state.videoList.length + 1,
                   itemBuilder: (BuildContext context, int index) {
-                    return VideoCard(
-                      cardModell: state.videoList[index],
-                    );
+                    if (index == state.videoList.length) {
+                      if (!state.isLoadingMoreVideos) {
+                        BlocProvider.of<HomeBloc>(context).add(
+                            AddVideoInList(startIndex: state.videoList.length));
+                      }
+                      return Column(
+                        children: [
+                          SizedBox(
+                              height: 30,
+                              child: RiveAnimation.asset(
+                                  "assets/animations/eye.riv"))
+                        ],
+                      );
+                    } else {
+                      return VideoCard(cardModell: state.videoList[index]);
+                    }
                   },
                 ),
               );
