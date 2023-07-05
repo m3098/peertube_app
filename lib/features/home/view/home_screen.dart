@@ -4,15 +4,14 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
+
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
-import 'package:red_eyes_app/repositories/peertube/model/models.dart';
+
 import 'package:red_eyes_app/router/router.dart';
 import 'package:rive/rive.dart';
 import '..//widgets/widgets.dart';
 
 import '../../anim_widgets/anim_widgets.dart';
-import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -72,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                         BlocProvider.of<HomeBloc>(context).add(
                             AddVideoInList(startIndex: state.videoList.length));
                       }
-                      return Column(
+                      return const Column(
                         children: [
                           SizedBox(
                               height: 30,
@@ -87,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             }
-            return SizedBox();
+            return const SizedBox();
           },
         ));
   }

@@ -9,7 +9,7 @@ class PeertubeRepository extends AbstractPeertubeRepository {
   PeertubeRepository({required this.hostName, required this.apiVersion});
 
   @override
-  Future<List<PeertubeVideoCardModel>> getVideos(
+  Future<List<PeertubeVideoCardModel>> getVideoList(
       {int categoryOneOf = 100,
       int count = 15,
       bool excludeAlreadyWatched = true,

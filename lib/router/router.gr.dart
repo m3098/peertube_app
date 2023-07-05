@@ -22,11 +22,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     VideoRoute.name: (routeData) {
-      final args = routeData.argsAs<VideoRouteArgs>(
-          orElse: () => const VideoRouteArgs());
+      final args = routeData.argsAs<VideoRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: VideoScreen(key: args.key),
+        child: VideoScreen(
+          key: args.key,
+          videoId: args.videoId,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
@@ -57,10 +59,14 @@ class LoginRoute extends PageRouteInfo<void> {
 class VideoRoute extends PageRouteInfo<VideoRouteArgs> {
   VideoRoute({
     Key? key,
+    required int videoId,
     List<PageRouteInfo>? children,
   }) : super(
           VideoRoute.name,
-          args: VideoRouteArgs(key: key),
+          args: VideoRouteArgs(
+            key: key,
+            videoId: videoId,
+          ),
           initialChildren: children,
         );
 
@@ -70,13 +76,18 @@ class VideoRoute extends PageRouteInfo<VideoRouteArgs> {
 }
 
 class VideoRouteArgs {
-  const VideoRouteArgs({this.key});
+  const VideoRouteArgs({
+    this.key,
+    required this.videoId,
+  });
 
   final Key? key;
 
+  final int videoId;
+
   @override
   String toString() {
-    return 'VideoRouteArgs{key: $key}';
+    return 'VideoRouteArgs{key: $key, videoId: $videoId}';
   }
 }
 

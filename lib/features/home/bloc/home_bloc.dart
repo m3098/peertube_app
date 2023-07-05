@@ -16,7 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeLoading());
 
       try {
-        final videoList = await GetIt.I<PeertubeRepository>().getVideos();
+        final videoList = await GetIt.I<PeertubeRepository>().getVideoList();
         _homePageVideoList
           ..clear()
           ..addAll(videoList);
@@ -39,7 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           HomeLoaded(videoList: _homePageVideoList, isLoadingMoreVideos: true));
       try {
         final videoList = await GetIt.I<PeertubeRepository>()
-            .getVideos(start: event.startIndex);
+            .getVideoList(start: event.startIndex);
         _homePageVideoList.addAll(videoList);
 
         print("video items: ${_homePageVideoList.length}");

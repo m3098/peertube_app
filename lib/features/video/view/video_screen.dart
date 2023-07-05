@@ -3,9 +3,10 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-@RoutePage()    
+@RoutePage()
 class VideoScreen extends StatefulWidget {
-  VideoScreen({super.key});
+  const VideoScreen({super.key, required this.videoId});
+  final int videoId;
 
   @override
   State<VideoScreen> createState() => _VideoScreenState();
@@ -20,11 +21,6 @@ class _VideoScreenState extends State<VideoScreen> {
     super.initState();
     _chewieController = ChewieController(
         videoPlayerController: VideoPlayerController.network(videoUrl));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override

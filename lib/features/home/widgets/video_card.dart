@@ -16,6 +16,7 @@ class VideoCard extends StatelessWidget {
           _VideoPreview(
             previewPath: cardModell.previewPath as String,
             duration: cardModell.duration as int,
+            videoId: cardModell.id as int,
           ),
           const SizedBox(
             height: 12,
@@ -36,10 +37,14 @@ class VideoCard extends StatelessWidget {
 }
 
 class _VideoPreview extends StatelessWidget {
-  const _VideoPreview({required this.previewPath, required this.duration});
+  const _VideoPreview(
+      {required this.previewPath,
+      required this.duration,
+      required this.videoId});
 
   final String previewPath;
   final int duration;
+  final int videoId;
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +55,7 @@ class _VideoPreview extends StatelessWidget {
           aspectRatio: 16 / 9,
           child: GestureDetector(
             onTap: () {
-              AutoRouter.of(context).push(VideoRoute());
-              ;
+              AutoRouter.of(context).push(VideoRoute(videoId: videoId));
             },
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
