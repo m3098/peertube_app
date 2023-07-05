@@ -34,7 +34,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
     on<AddVideoInList>((event, emit) async {
-      print("START  ADD VIDEO IN LIST");
       emit(
           HomeLoaded(videoList: _homePageVideoList, isLoadingMoreVideos: true));
       try {
@@ -45,7 +44,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         print("video items: ${_homePageVideoList.length}");
         emit(HomeLoaded(
             videoList: _homePageVideoList, isLoadingMoreVideos: false));
-        print("EXIT  ADD VIDEO IN LIST");
       } catch (e) {}
     });
   }

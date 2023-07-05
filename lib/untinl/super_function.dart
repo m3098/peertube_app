@@ -16,4 +16,14 @@ class SuperFunction {
 
     return result;
   }
+
+  static String formatDateToString(DateTime date) {
+    String formattedDate =
+        "${date.year.toString()}.${_padNumber(date.month.toString())}.${_padNumber(date.day.toString())}";
+    return formattedDate;
+  }
+
+  static String _padNumber(String number) {
+    return number.padLeft(2, '0');
+  }
 }

@@ -14,5 +14,7 @@ abstract class AbstractPeertubeRepository {
     int start = 0,
   });
 
-  Future<PeertubeVideoFullModel> getVideo({required int id});
+  Future<PeertubeVideoFullModel> getVideo({
+    required int id,
+  });
 }

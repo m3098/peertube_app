@@ -5,6 +5,8 @@ import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
 
 import 'package:red_eyes_app/router/router.dart';
 import 'package:red_eyes_app/theme/theme.dart';
+
+import 'features/video/bloc/video_bloc.dart';
 //views
 
 class MyApp extends StatelessWidget {
@@ -14,8 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
+        BlocProvider<VideoBloc>(create: (context) => VideoBloc()),
+      ],
       child: MaterialApp.router(
         title: 'RED EYE APP',
         theme: AppTheme.darkTheme,

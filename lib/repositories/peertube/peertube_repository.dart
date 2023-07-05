@@ -42,4 +42,12 @@ class PeertubeRepository extends AbstractPeertubeRepository {
 
     return videoList;
   }
+
+  @override
+  Future<PeertubeVideoFullModel> getVideo({required int id}) async {
+    String url = "https://$hostName/api/$apiVersion/videos/$id";
+    final Response<dynamic> response = await Dio().get(url);
+
+    return PeertubeVideoFullModel.fromJson(response.data);
+  }
 }
