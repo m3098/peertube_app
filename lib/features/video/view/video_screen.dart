@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/widgets.dart';
 import '../bloc/video_bloc.dart';
+import '../../anim_widgets/anim_widgets.dart';
 
 @RoutePage()
 class VideoScreen extends StatefulWidget {
@@ -32,13 +33,15 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VideoBloc, VideoState>(
-      builder: (context, state) {
-        if (state is VideoLoaded) {
-          chewieController = state.chewieController;
-          return Scaffold(
-            appBar: AppBar(title: Text("TEXT")),
-            body: SafeArea(
+    return Scaffold(
+      appBar: AppBar(title: Text("TEXT")),
+      body: BlocBuilder<VideoBloc, VideoState>(
+        builder: (context, state) {
+          if (state is VideoLoading) {
+            return const AnimLoadingWidget();
+          } else if (state is VideoLoaded) {
+            chewieController = state.chewieController;
+            return SafeArea(
               child: Column(
                 children: [
                   PeertubeVideoPlayer(chewieController: chewieController),
@@ -54,14 +57,14 @@ class _VideoScreenState extends State<VideoScreen> {
                   )
                 ],
               ),
-            ),
-          );
-        } else if (state is VideoLoadingFailed) {
-          return Center(child: Text(state.exception.toString()));
-        } else {
-          return const SizedBox();
-        }
-      },
+            );
+          } else if (state is VideoLoadingFailed) {
+            return Center(child: Text(state.exception.toString()));
+          } else {
+            return const SizedBox();
+          }
+        },
+      ),
     );
   }
 }
