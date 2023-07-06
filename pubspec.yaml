@@ -49,6 +49,9 @@ dependencies:
   video_player: ^2.7.0
   auto_route: ^7.6.0
   get_it: ^7.6.0
+  transparent_image: ^2.0.1
+  flutter_image: ^4.1.6
+
 
 
 

@@ -1,7 +1,7 @@
 import 'package:red_eyes_app/repositories/peertube/model/models.dart';
 
 abstract class AbstractPeertubeRepository {
-  Future<List<PeertubeVideoCardModel>> getVideoList({
+  Future<List<PeertubeVideoFullModel>> getVideoList({
     int categoryOneOf = 100,
     int count = 15,
     bool excludeAlreadyWatched = true,

@@ -9,7 +9,7 @@ class PeertubeRepository extends AbstractPeertubeRepository {
   PeertubeRepository({required this.hostName, required this.apiVersion});
 
   @override
-  Future<List<PeertubeVideoCardModel>> getVideoList(
+  Future<List<PeertubeVideoFullModel>> getVideoList(
       {int categoryOneOf = 100,
       int count = 15,
       bool excludeAlreadyWatched = true,
@@ -37,7 +37,7 @@ class PeertubeRepository extends AbstractPeertubeRepository {
     final data = response.data["data"] as List<dynamic>;
 
     final videoList = data.map((json) {
-      return PeertubeVideoCardModel.fromJson(json);
+      return PeertubeVideoFullModel.fromJson(json);
     }).toList();
 
     return videoList;

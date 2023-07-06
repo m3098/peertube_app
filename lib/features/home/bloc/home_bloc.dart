@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:red_eyes_app/repositories/peertube/model/peertube_video_card_model.dart';
-import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
 
+import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
+import '../../../repositories/peertube/model/models.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final List<PeertubeVideoCardModel> _homePageVideoList = [];
+  final List<PeertubeVideoFullModel> _homePageVideoList = [];
   HomeBloc() : super(HomeInitial()) {
     on<LoadVideoList>((event, emit) async {
       emit(HomeLoading());

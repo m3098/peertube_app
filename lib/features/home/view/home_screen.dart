@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                         ],
                       );
                     } else {
-                      return VideoCard(cardModell: state.videoList[index]);
+                      return VideoCard(videoModel: state.videoList[index]);
                     }
                   },
                 ),

@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:red_eyes_app/features/video/bloc/video_bloc.dart';
-import 'package:red_eyes_app/repositories/peertube/model/peertube_video_card_model.dart';
+import 'package:red_eyes_app/repositories/peertube/model/peertube_video_full_model.dart';
+
 import 'package:red_eyes_app/router/router.dart';
 import 'package:red_eyes_app/untinl/super_function.dart';
 
+import '../../widgets/widgets.dart';
+
 class VideoCard extends StatelessWidget {
-  const VideoCard({super.key, required this.cardModell});
-  final PeertubeVideoCardModel cardModell;
+  const VideoCard({super.key, required this.videoModel});
+  final PeertubeVideoFullModel videoModel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +20,14 @@ class VideoCard extends StatelessWidget {
       child: Column(
         children: [
           _VideoPreview(
-            previewPath: cardModell.previewPath as String,
-            duration: cardModell.duration as int,
-            videoId: cardModell.id as int,
+            videoModel: videoModel,
           ),
           const SizedBox(
             height: 12,
           ),
           _VideoInfo(
-              channelAvatarPath: cardModell.channel?.avatar["path"] ?? "",
-              title: cardModell.name as String,
-              channelName: cardModell.channel?.name as String,
-              date: cardModell.createdAt as DateTime,
-              viewCount: cardModell.views as int),
+            videoModel: videoModel,
+          ),
           const SizedBox(
             height: 6,
           ),
@@ -40,14 +38,8 @@ class VideoCard extends StatelessWidget {
 }
 
 class _VideoPreview extends StatelessWidget {
-  const _VideoPreview(
-      {required this.previewPath,
-      required this.duration,
-      required this.videoId});
-
-  final String previewPath;
-  final int duration;
-  final int videoId;
+  const _VideoPreview({required this.videoModel});
+  final PeertubeVideoFullModel videoModel;
 
   @override
   Widget build(BuildContext context) {
@@ -59,16 +51,16 @@ class _VideoPreview extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               BlocProvider.of<VideoBloc>(context)
-                  .add(LoadVideo(videoId: videoId));
+                  .add(LoadVideo(videoId: videoModel.id as int));
               AutoRouter.of(context).push(const VideoRoute());
             },
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 return SizedBox(
                   width: constraints.maxWidth,
-                  child: Image.network(
-                    "https://peertube.su$previewPath",
-                    fit: BoxFit.contain,
+                  child: PeertubeImage(
+                    perviewPath: videoModel.previewPath as String,
+                    thumbnailPath: videoModel.thumbnailPath as String,
                   ),
                 );
               },
@@ -79,7 +71,8 @@ class _VideoPreview extends StatelessWidget {
           color: Colors.black.withOpacity(0.8),
           child: Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Text(SuperFunction.convertDuration(duration)),
+            child:
+                Text(SuperFunction.convertDuration(videoModel.duration as int)),
           ),
         )
       ],
@@ -88,17 +81,10 @@ class _VideoPreview extends StatelessWidget {
 }
 
 class _VideoInfo extends StatelessWidget {
-  const _VideoInfo(
-      {required this.title,
-      required this.channelName,
-      required this.date,
-      required this.viewCount,
-      required this.channelAvatarPath});
-  final String channelAvatarPath;
-  final String title;
-  final String channelName;
-  final DateTime date;
-  final int viewCount;
+  const _VideoInfo({required this.videoModel});
+
+  final PeertubeVideoFullModel videoModel;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -108,10 +94,9 @@ class _VideoInfo extends StatelessWidget {
           SizedBox(
             width: 50,
             height: 50,
-            child: channelAvatarPath.isNotEmpty
-                ? Image.network(
-                    "https://peertube.su$channelAvatarPath",
-                  )
+            child: videoModel.channel!.avatars!.isNotEmpty
+                ? PeertubeImage(
+                    perviewPath: videoModel.channel!.avatars![0].path as String)
                 : const FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Center(child: Text("no avatar"))),
@@ -124,14 +109,14 @@ class _VideoInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  "${videoModel.name} ",
                   style: Theme.of(context).textTheme.titleMedium,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  "$channelName - $viewCount views - ${date.year}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')}",
+                  "${videoModel.channel!.name} - ${videoModel.views}  views - ${SuperFunction.formatDateToString(videoModel.publishedAt as DateTime)}",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

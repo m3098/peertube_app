@@ -13,7 +13,7 @@ class HomeLoading extends HomeState {
 }
 
 class HomeLoaded extends HomeState {
-  final List<PeertubeVideoCardModel> videoList;
+  final List<PeertubeVideoFullModel> videoList;
   final bool isLoadingMoreVideos;
 
   HomeLoaded({required this.videoList, required this.isLoadingMoreVideos});
