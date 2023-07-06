@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:chewie/chewie.dart';
 import 'package:equatable/equatable.dart';

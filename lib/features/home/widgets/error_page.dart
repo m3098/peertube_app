@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rive/rive.dart';
-
-import '../bloc/home_bloc.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key, required this.callback, required this.errorText});

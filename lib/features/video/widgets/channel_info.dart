@@ -17,7 +17,7 @@ class ChannelInfo extends StatelessWidget {
               onPressed: () {},
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 50,
                     width: 50,
                     child: state.peertubeVideoFullModel.channel!.avatars?[0] !=

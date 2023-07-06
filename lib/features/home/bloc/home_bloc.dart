@@ -21,12 +21,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           ..clear()
           ..addAll(videoList);
 
-        print("video items: ${_homePageVideoList.length}");
         emit(HomeLoaded(
             videoList: _homePageVideoList, isLoadingMoreVideos: false));
       } catch (e) {
-        print(e.toString());
-        print(e);
         emit(HomeLoadingFailed(exception: e));
       } finally {
         event.completer?.complete();
@@ -41,9 +38,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             .getVideoList(start: event.startIndex);
         _homePageVideoList.addAll(videoList);
 
-        print("video items: ${_homePageVideoList.length}");
         emit(HomeLoaded(
             videoList: _homePageVideoList, isLoadingMoreVideos: false));
+        // ignore: empty_catches
       } catch (e) {}
     });
   }

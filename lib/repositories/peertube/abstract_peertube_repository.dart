@@ -1,7 +1,5 @@
 import 'package:red_eyes_app/repositories/peertube/model/models.dart';
 
-import 'model/peertube_video_card_model.dart';
-
 abstract class AbstractPeertubeRepository {
   Future<List<PeertubeVideoCardModel>> getVideoList({
     int categoryOneOf = 100,

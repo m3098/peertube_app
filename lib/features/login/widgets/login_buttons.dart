@@ -35,8 +35,8 @@ class _LoginButtonsState extends State<LoginButtons> {
               TextButton(
                 onPressed: () async {
                   const url = "https://joinpeertube.org/";
-                  if (await canLaunch(url)) {
-                    await launch(url);
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
                   } else {
                     throw 'Could not launch $url';
                   }

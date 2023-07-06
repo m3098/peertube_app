@@ -15,7 +15,7 @@ class VideoLoaded extends VideoState {
   final PeertubeVideoFullModel peertubeVideoFullModel;
   final ChewieController chewieController;
 
-  VideoLoaded({
+  const VideoLoaded({
     required this.peertubeVideoFullModel,
     required this.chewieController,
   });
@@ -27,5 +27,5 @@ class VideoLoaded extends VideoState {
 class VideoLoadingFailed extends VideoState {
   final Object? exception;
 
-  VideoLoadingFailed({required this.exception});
+  const VideoLoadingFailed({required this.exception});
 }

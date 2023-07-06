@@ -34,7 +34,7 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("TEXT")),
+      appBar: AppBar(title: const Text("TEXT")),
       body: BlocBuilder<VideoBloc, VideoState>(
         builder: (context, state) {
           if (state is VideoLoading) {

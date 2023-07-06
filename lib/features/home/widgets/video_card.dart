@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
+
 import 'package:red_eyes_app/features/video/bloc/video_bloc.dart';
 import 'package:red_eyes_app/repositories/peertube/model/peertube_video_card_model.dart';
 import 'package:red_eyes_app/router/router.dart';
@@ -60,7 +60,7 @@ class _VideoPreview extends StatelessWidget {
             onTap: () {
               BlocProvider.of<VideoBloc>(context)
                   .add(LoadVideo(videoId: videoId));
-              AutoRouter.of(context).push(VideoRoute());
+              AutoRouter.of(context).push(const VideoRoute());
             },
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

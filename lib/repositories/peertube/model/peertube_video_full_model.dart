@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'peertube_video_full_model.g.dart';
@@ -184,7 +186,6 @@ class _ScheduledUpdateModel extends Equatable {
   const _ScheduledUpdateModel({required this.privacy, required this.updateAt});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [privacy, updateAt];
   factory _ScheduledUpdateModel.fromJson(Map<String, dynamic> json) =>
       _$ScheduledUpdateModelFromJson(json);
@@ -224,7 +225,6 @@ class _AccountModel extends Equatable {
       required this.description});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         name,
@@ -285,7 +285,6 @@ class _ChannelModel extends Equatable {
       required this.ownerAccount});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         id,
         name,
@@ -324,7 +323,6 @@ class _AvatarModel extends Equatable {
       required this.updatedAt});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [path, width, createdAt, updatedAt];
 
   factory _AvatarModel.fromJson(Map<String, dynamic> json) =>
@@ -341,7 +339,6 @@ class _OwnerAccountModel extends Equatable {
   const _OwnerAccountModel({required this.id, required this.uuid});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [id, uuid];
 
   factory _OwnerAccountModel.fromJson(Map<String, dynamic> json) =>

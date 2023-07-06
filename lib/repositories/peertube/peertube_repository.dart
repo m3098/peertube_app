@@ -20,13 +20,13 @@ class PeertubeRepository extends AbstractPeertubeRepository {
       int start = 0,
       List<String> tagsOneOf = const []}) async {
     // ignore: prefer_interpolation_to_compose_strings
-    String url = "https://$hostName/api/$apiVersion/videos?" +
-        "count=$count" +
+    String url = "https://$hostName/api/$apiVersion/videos?"
+        "count=$count"
         // "&excludeAlreadyWatched=$excludeAlreadyWatched" +
-        "&hasHLSFiles=$hasHLSFiles" +
-        "&isLive=$isLive" +
-        "&isLocal=$isLocal" +
-        "&nsfw=$nsfw" +
+        "&hasHLSFiles=$hasHLSFiles"
+        "&isLive=$isLive"
+        "&isLocal=$isLocal"
+        "&nsfw=$nsfw"
         "&start=$start";
     if (tagsOneOf.isNotEmpty) {
       for (var element in tagsOneOf) {
