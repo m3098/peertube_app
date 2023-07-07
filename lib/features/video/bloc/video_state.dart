@@ -21,7 +21,7 @@ class VideoLoaded extends VideoState {
   });
 
   @override
-  List<Object> get props => [peertubeVideoFullModel];
+  List<Object> get props => [peertubeVideoFullModel, chewieController];
 }
 
 class VideoLoadingFailed extends VideoState {

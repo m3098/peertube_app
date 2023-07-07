@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:red_eyes_app/features/video/bloc/video_bloc.dart';
+import 'package:red_eyes_app/features/widgets/peertube_image.dart';
 import 'package:red_eyes_app/repositories/peertube/model/peertube_video_full_model.dart';
 
 import 'package:red_eyes_app/router/router.dart';
 import 'package:red_eyes_app/untinl/super_function.dart';
-
-import '../../widgets/widgets.dart';
 
 class VideoCard extends StatelessWidget {
   const VideoCard({super.key, required this.videoModel});
@@ -50,9 +49,13 @@ class _VideoPreview extends StatelessWidget {
           aspectRatio: 16 / 9,
           child: GestureDetector(
             onTap: () {
-              BlocProvider.of<VideoBloc>(context)
-                  .add(LoadVideo(videoId: videoModel.id as int));
-              AutoRouter.of(context).push(const VideoRoute());
+              BlocProvider.of<VideoBloc>(context).add(
+                LoadVideo(
+                  videoId: videoModel.id as int,
+                ),
+              );
+              AutoRouter.of(context)
+                  .push(VideoRoute(videoCardModel: videoModel));
             },
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

@@ -22,15 +22,19 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     VideoRoute.name: (routeData) {
+      final args = routeData.argsAs<VideoRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const VideoScreen(),
+        child: VideoScreen(
+          key: args.key,
+          videoCardModel: args.videoCardModel,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: HomeScreen(),
+        child: const HomeScreen(),
       );
     },
   };
@@ -52,16 +56,39 @@ class LoginRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [VideoScreen]
-class VideoRoute extends PageRouteInfo<void> {
-  const VideoRoute({List<PageRouteInfo>? children})
-      : super(
+class VideoRoute extends PageRouteInfo<VideoRouteArgs> {
+  VideoRoute({
+    Key? key,
+    required PeertubeVideoFullModel videoCardModel,
+    List<PageRouteInfo>? children,
+  }) : super(
           VideoRoute.name,
+          args: VideoRouteArgs(
+            key: key,
+            videoCardModel: videoCardModel,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'VideoRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<VideoRouteArgs> page = PageInfo<VideoRouteArgs>(name);
+}
+
+class VideoRouteArgs {
+  const VideoRouteArgs({
+    this.key,
+    required this.videoCardModel,
+  });
+
+  final Key? key;
+
+  final PeertubeVideoFullModel videoCardModel;
+
+  @override
+  String toString() {
+    return 'VideoRouteArgs{key: $key, videoCardModel: $videoCardModel}';
+  }
 }
 
 /// generated route for

@@ -1,14 +1,15 @@
 part of 'video_bloc.dart';
 
-abstract class VideoEvent extends Equatable {
+abstract class VideoEvent {
   const VideoEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class LoadVideo extends VideoEvent {
   final int videoId;
 
-  const LoadVideo({required this.videoId});
+  const LoadVideo({
+    required this.videoId,
+  });
 }
+
+class PauseVideo extends VideoEvent {}

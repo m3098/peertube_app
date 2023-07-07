@@ -10,7 +10,7 @@ import 'package:red_eyes_app/router/router.dart';
 import 'package:rive/rive.dart';
 import '..//widgets/widgets.dart';
 
-import '../../anim_widgets/anim_widgets.dart';
+import '../../widgets/widgets.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

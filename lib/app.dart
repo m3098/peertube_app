@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         title: 'RED EYE APP',
         theme: AppTheme.darkTheme,
-        routerConfig: _appRouter.config(),
+        routerConfig:
+            _appRouter.config(navigatorObservers: () => [HeroController()]),
       ),
     );
   }
