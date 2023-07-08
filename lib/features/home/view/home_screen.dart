@@ -8,6 +8,7 @@ import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
 
 import 'package:red_eyes_app/router/router.dart';
 import 'package:rive/rive.dart';
+import '../../appbar/peertube_app_bar.dart';
 import '..//widgets/widgets.dart';
 
 import '../../widgets/widgets.dart';
@@ -19,25 +20,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("peertube.su"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(Icons.account_circle),
-              onPressed: () {
-                AutoRouter.of(context).push(const LoginRoute());
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {},
-            ),
-          ],
-        ),
+        appBar: const PeertubeAppBar(),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeInitial) {

@@ -6,8 +6,8 @@ import 'package:skeletons/skeletons.dart';
 
 import '../bloc/video_bloc.dart';
 
-class ChannelInfo extends StatelessWidget {
-  const ChannelInfo({
+class ChannelSection extends StatelessWidget {
+  const ChannelSection({
     super.key,
     required this.channelAvatarPath,
     required this.name,

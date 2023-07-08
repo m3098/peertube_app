@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-
 import '../../../untinl/super_function.dart';
 
-
-class VideoHeader extends StatelessWidget {
-  const VideoHeader({
+class HeaderSection extends StatelessWidget {
+  const HeaderSection({
     super.key,
     required this.title,
     required this.views,
