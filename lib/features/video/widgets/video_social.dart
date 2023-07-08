@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../bloc/video_bloc.dart';
+import 'reaction_button.dart';
 
 class VideoSocial extends StatelessWidget {
   const VideoSocial({
@@ -10,60 +12,69 @@ class VideoSocial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return OrientationBuilder(builder: (context, orientation) {
+      return const _Screen();
+    });
+  }
+}
+
+class _Screen extends StatelessWidget {
+  const _Screen();
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<VideoBloc, VideoState>(
       builder: (context, state) {
-        if (state is VideoLoaded) {
+        if (state is! VideoLoadingFailed) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  OutlinedButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.keyboard_arrow_up,
-                            color: Colors.red,
-                          ),
-                          const SizedBox(width: 5),
-                          Text("${state.peertubeVideoFullModel.likes}",
-                              style: Theme.of(context).textTheme.bodyLarge)
-                        ],
-                      )),
+                  Skeleton(
+                    isLoading: state is! VideoLoaded,
+                    skeleton: const SkeletonLine(
+                      style: SkeletonLineStyle(width: 80, height: 30),
+                    ),
+                    child: state is VideoLoaded
+                        ? ReactionButton(
+                            text: "${state.peertubeVideoFullModel.likes}",
+                            isActive: true,
+                            onPressed: () {},
+                            iconData: Icons.keyboard_arrow_up)
+                        : const SizedBox(),
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
-                  OutlinedButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 5),
-                          Text("${state.peertubeVideoFullModel.dislikes}",
-                              style: Theme.of(context).textTheme.bodyLarge)
-                        ],
-                      )),
+                  Skeleton(
+                    isLoading: state is! VideoLoaded,
+                    skeleton: const SkeletonLine(
+                      style: SkeletonLineStyle(width: 80, height: 30),
+                    ),
+                    child: state is VideoLoaded
+                        ? ReactionButton(
+                            text: "${state.peertubeVideoFullModel.dislikes}",
+                            isActive: false,
+                            onPressed: () {},
+                            iconData: Icons.keyboard_arrow_down)
+                        : const SizedBox(),
+                  ),
                 ],
               ),
-              OutlinedButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        "Share",
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      )
-                    ],
-                  ))
+              Skeleton(
+                isLoading: state is! VideoLoaded,
+                skeleton: const SkeletonLine(
+                  style: SkeletonLineStyle(width: 100, height: 30),
+                ),
+                child: state is VideoLoaded
+                    ? ReactionButton(
+                        text: "share",
+                        isActive: true,
+                        onPressed: () {},
+                        iconData: Icons.favorite_border)
+                    : const SizedBox(),
+              ),
             ],
           );
         } else {

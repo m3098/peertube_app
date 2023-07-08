@@ -1,15 +1,13 @@
 // ignore: depend_on_referenced_packages
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:chewie/chewie.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../repositories/peertube/model/peertube_video_full_model.dart';
 import '../../../repositories/peertube/peertube_repository.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart';
 
 part 'video_event.dart';
 part 'video_state.dart';
@@ -34,6 +32,10 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
           await videoPlayerController.pause();
 
           chewieController = ChewieController(
+            materialProgressColors: ChewieProgressColors(
+                playedColor: Colors.red,
+                bufferedColor: const Color.fromARGB(100, 255, 67, 54),
+                backgroundColor: const Color.fromARGB(50, 0, 0, 0)),
             autoInitialize: false,
             autoPlay: false,
             videoPlayerController: videoPlayerController,
@@ -56,5 +58,12 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
               ..pause()));
       },
     );
+
+    on<EnterFullScreenVideo>((event, emit) => emit(VideoLoaded(
+        peertubeVideoFullModel: videoModel,
+        chewieController: chewieController..enterFullScreen())));
+    on<ExitFullScreenVideo>((event, emit) => emit(VideoLoaded(
+        peertubeVideoFullModel: videoModel,
+        chewieController: chewieController..exitFullScreen())));
   }
 }

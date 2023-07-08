@@ -10,5 +10,6 @@ void main() {
   GetIt.I.registerLazySingleton(
       () => PeertubeRepository(hostName: "peertube.su", apiVersion: "v1"));
   Bloc.transformer = sequential();
+
   runApp(MyApp());
 }

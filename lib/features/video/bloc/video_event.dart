@@ -13,3 +13,7 @@ class LoadVideo extends VideoEvent {
 }
 
 class PauseVideo extends VideoEvent {}
+
+class EnterFullScreenVideo extends VideoEvent {}
+
+class ExitFullScreenVideo extends VideoEvent {}
