@@ -18,10 +18,13 @@ class PeertubeRepository extends AbstractPeertubeRepository {
       bool isLocal = false,
       bool nsfw = false,
       int start = 0,
+      String search = "",
       List<String> tagsOneOf = const []}) async {
     // ignore: prefer_interpolation_to_compose_strings
+
     String url = "https://$hostName/api/$apiVersion/videos?"
-        "count=$count"
+        "search=$search"
+        "&count=$count"
         // "&excludeAlreadyWatched=$excludeAlreadyWatched" +
         "&hasHLSFiles=$hasHLSFiles"
         "&isLive=$isLive"
@@ -33,6 +36,7 @@ class PeertubeRepository extends AbstractPeertubeRepository {
         url += "&tagsOneOf=$element";
       }
     }
+
     final response = await Dio().get(url);
     final data = response.data["data"] as List<dynamic>;
 

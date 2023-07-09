@@ -16,7 +16,10 @@ class HomeLoaded extends HomeState {
   final List<PeertubeVideoFullModel> videoList;
   final bool isLoadingMoreVideos;
 
-  HomeLoaded({required this.videoList, required this.isLoadingMoreVideos});
+  HomeLoaded({
+    required this.videoList,
+    required this.isLoadingMoreVideos,
+  });
 
   @override
   List<Object?> get props => [videoList, isLoadingMoreVideos];

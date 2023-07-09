@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
 
 import '../../repositories/peertube/peertube_repository.dart';
 import '../../router/router.dart';
@@ -12,7 +14,10 @@ class PeertubeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: TextButton(
-          onPressed: () => AutoRouter.of(context).popUntilRoot(),
+          onPressed: () {
+            BlocProvider.of<HomeBloc>(context).add(SetSearchText(search: ""));
+            AutoRouter.of(context).popUntilRoot();
+          },
           child: Text(GetIt.I<PeertubeRepository>().hostName)),
       actions: [
         IconButton(
@@ -83,6 +88,7 @@ class _SearchDialogState extends State<SearchDialog> {
             ),
           ),
           onSubmitted: (text) {
+            BlocProvider.of<HomeBloc>(context).add(SetSearchText(search: text));
             AutoRouter.of(context).popUntilRoot();
           },
         ),
