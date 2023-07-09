@@ -45,7 +45,7 @@ class _VideoScreenState extends State<VideoScreen> {
     videoBloc = BlocProvider.of<VideoBloc>(context);
 
     return Scaffold(
-      appBar: const PeertubeAppBar(),
+      appBar: PeertubeAppBar(),
       body: OrientationBuilder(builder: (context, orientation) {
         return BlocBuilder<VideoBloc, VideoState>(
           builder: (context, state) {
@@ -61,7 +61,10 @@ class _VideoScreenState extends State<VideoScreen> {
               final views = widget.videoCardModel.views as int;
               final publishedAt = widget.videoCardModel.publishedAt as DateTime;
               final channelAvatarPath =
-                  widget.videoCardModel.channel?.avatars?[0].path as String;
+                  widget.videoCardModel.channel?.avatars?.length != 0
+                      ? widget.videoCardModel.channel!.avatars![0].path
+                          as String
+                      : "";
               final channelName = widget.videoCardModel.channel?.name as String;
 
               return SafeArea(
@@ -111,7 +114,7 @@ class _VideoScreenState extends State<VideoScreen> {
                                       supportLink:
                                           "${state.peertubeVideoFullModel.support}",
                                     )
-                                  : SkeletonLine(
+                                  : const SkeletonLine(
                                       style: SkeletonLineStyle(height: 30),
                                     ),
                             ),
