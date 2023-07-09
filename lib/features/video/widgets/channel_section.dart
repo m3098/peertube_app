@@ -44,7 +44,7 @@ class ChannelSection extends StatelessWidget {
                   builder: (context, state) {
                     return Skeleton(
                       isLoading: state is! VideoLoaded,
-                      skeleton: SkeletonLine(
+                      skeleton: const SkeletonLine(
                           style: SkeletonLineStyle(
                         width: 100,
                       )),

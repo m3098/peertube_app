@@ -49,13 +49,10 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
         }
       },
     );
-    on<PauseVideo>(
+    on<DisposeVideoPlayer>(
       (event, emit) {
-        emit(VideoLoaded(
-            peertubeVideoFullModel: videoModel,
-            chewieController: chewieController
-              ..videoPlayerController
-              ..pause()));
+        chewieController.dispose();
+        chewieController.videoPlayerController.dispose();
       },
     );
 

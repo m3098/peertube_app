@@ -34,7 +34,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   void dispose() {
-    videoBloc.add(PauseVideo());
+    videoBloc.add(DisposeVideoPlayer());
     Wakelock.disable();
     super.dispose();
   }
