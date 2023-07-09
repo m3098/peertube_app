@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
-
-import 'package:red_eyes_app/router/router.dart';
 import 'package:rive/rive.dart';
 import '../../appbar/peertube_app_bar.dart';
 import '..//widgets/widgets.dart';
@@ -48,6 +46,7 @@ class HomeScreen extends StatelessWidget {
                   return completer.future;
                 },
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: state.videoList.length + 1,
                   itemBuilder: (BuildContext context, int index) {
                     if (index == state.videoList.length) {

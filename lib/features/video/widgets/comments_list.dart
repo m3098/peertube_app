@@ -9,6 +9,7 @@ class CommetnsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: 100, //
         itemBuilder: (context, index) => ListTile(
           title: const Text("Name account"),

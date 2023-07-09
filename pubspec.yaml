@@ -52,7 +52,7 @@ dependencies:
   skeletons: ^0.0.3
   wakelock: ^0.6.2
   flutter_linkify: ^6.0.0
- 
+
 
 
 
@@ -83,6 +83,7 @@ flutter:
     - assets/animations/eye.riv
     - assets/animations/wait.riv
     - assets/animations/doomer.riv
+    - assets/animations/support.riv
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

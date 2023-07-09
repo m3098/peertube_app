@@ -7,6 +7,7 @@ part 'peertube_video_full_model.g.dart';
 @JsonSerializable()
 class PeertubeVideoFullModel extends Equatable {
   final int? id;
+  final String? url;
   final String? uuid;
   final String? shortUUID;
   final bool? isLive;
@@ -44,7 +45,8 @@ class PeertubeVideoFullModel extends Equatable {
   final List<_StreamingPlaylistModel>? streamingPlaylists;
 
   const PeertubeVideoFullModel(
-      {required this.uuid,
+      {required this.url,
+      required this.uuid,
       required this.shortUUID,
       required this.isLive,
       required this.createdAt,
@@ -84,6 +86,7 @@ class PeertubeVideoFullModel extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        url,
         uuid,
         shortUUID,
         isLive,

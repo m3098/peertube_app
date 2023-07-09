@@ -9,6 +9,7 @@ part of 'peertube_video_full_model.dart';
 PeertubeVideoFullModel _$PeertubeVideoFullModelFromJson(
         Map<String, dynamic> json) =>
     PeertubeVideoFullModel(
+      url: json['url'] as String?,
       uuid: json['uuid'] as String?,
       shortUUID: json['shortUUID'] as String?,
       isLive: json['isLive'] as bool?,
@@ -77,6 +78,7 @@ Map<String, dynamic> _$PeertubeVideoFullModelToJson(
         PeertubeVideoFullModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'url': instance.url,
       'uuid': instance.uuid,
       'shortUUID': instance.shortUUID,
       'isLive': instance.isLive,

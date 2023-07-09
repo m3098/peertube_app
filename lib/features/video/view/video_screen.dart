@@ -7,6 +7,7 @@ import 'package:red_eyes_app/features/appbar/peertube_app_bar.dart';
 
 import 'package:red_eyes_app/features/widgets/widgets.dart';
 import 'package:red_eyes_app/repositories/peertube/model/models.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../widgets/widgets.dart';
@@ -57,7 +58,6 @@ class _VideoScreenState extends State<VideoScreen> {
               final thumbnailPath =
                   widget.videoCardModel.thumbnailPath as String;
               final name = widget.videoCardModel.name as String;
-              final description = widget.videoCardModel.description as String;
               final views = widget.videoCardModel.views as int;
               final publishedAt = widget.videoCardModel.publishedAt as DateTime;
               final channelAvatarPath =
@@ -76,6 +76,7 @@ class _VideoScreenState extends State<VideoScreen> {
                               thumbnailPath: thumbnailPath),
                     Expanded(
                       child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
                           children: [
                             if (orientation == Orientation.landscape)
@@ -87,7 +88,11 @@ class _VideoScreenState extends State<VideoScreen> {
                                       thumbnailPath: thumbnailPath),
                             DescriptionSection(
                                 title: name,
-                                description: description,
+                                description: state is VideoLoaded
+                                    ? state.peertubeVideoFullModel
+                                            .description ??
+                                        ""
+                                    : "",
                                 views: views,
                                 publishedAt: publishedAt),
                             ChannelSection(
@@ -97,9 +102,18 @@ class _VideoScreenState extends State<VideoScreen> {
                                     ? state.peertubeVideoFullModel.channel!
                                         .followersCount as int
                                     : -42),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.symmetric(horizontal: 6.0),
-                              child: SocialSection(),
+                              child: state is VideoLoaded
+                                  ? SocialSection(
+                                      shareLink:
+                                          "${state.peertubeVideoFullModel.url}",
+                                      supportLink:
+                                          "${state.peertubeVideoFullModel.support}",
+                                    )
+                                  : SkeletonLine(
+                                      style: SkeletonLineStyle(height: 30),
+                                    ),
                             ),
                             const Padding(
                               padding: EdgeInsets.all(6.0),

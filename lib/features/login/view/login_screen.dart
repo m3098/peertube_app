@@ -12,6 +12,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: const [
           SizedBox(height: 50),
           SizedBox(

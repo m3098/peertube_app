@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
+
 import 'package:red_eyes_app/features/widgets/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../untinl/super_function.dart';
 import '../../widgets/peertube_linked_text.dart';
@@ -29,10 +28,13 @@ class DescriptionSection extends StatelessWidget {
             context: context,
             builder: ((context) => PeertubeBottomSheet(
                 title: "Description",
-                child: SingleChildScrollView(
-                  child: ListTile(
-                    title: Text(title),
-                    subtitle: PeertubeLinkedText(description),
+                child: Expanded(
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: ListTile(
+                      title: Text(title),
+                      subtitle: PeertubeLinkedText(description),
+                    ),
                   ),
                 ))));
       },
