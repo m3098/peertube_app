@@ -52,19 +52,11 @@ class SocialSection extends StatelessWidget {
                     ),
                   ],
                 ),
-                Skeleton(
-                  isLoading: state is! VideoLoaded,
-                  skeleton: const SkeletonLine(
-                    style: SkeletonLineStyle(width: 100, height: 30),
-                  ),
-                  child: state is VideoLoaded
-                      ? ReactionButton(
-                          text: "share",
-                          isActive: true,
-                          onPressed: () {},
-                          iconData: Icons.favorite_border)
-                      : const SizedBox(),
-                ),
+                ReactionButton(
+                    text: "share",
+                    isActive: true,
+                    onPressed: () {},
+                    iconData: Icons.favorite_border)
               ],
             );
           } else {

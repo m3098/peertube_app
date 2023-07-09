@@ -7,7 +7,7 @@ class CommentsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return TextButton(
         onPressed: () {
           showBottomSheet(
               backgroundColor: Colors.black.withOpacity(0.0),
@@ -62,7 +62,7 @@ class VideoComments extends StatefulWidget {
 }
 
 class _VideoCommentsState extends State<VideoComments> {
-  bool _isOpasity = true;
+  bool _isOpasity = false;
   void _toggleOpacity() {
     _isOpasity = !_isOpasity;
     setState(() {});
@@ -70,7 +70,8 @@ class _VideoCommentsState extends State<VideoComments> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(microseconds: 300),
       color: Colors.black.withOpacity(_isOpasity ? 0.7 : 1.0),
       child: Column(
         children: [

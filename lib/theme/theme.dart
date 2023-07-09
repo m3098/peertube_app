@@ -7,6 +7,9 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.black,
       cardColor: Colors.black,
       dividerColor: Colors.red,
+      splashColor: Colors.red,
+      highlightColor: Colors.redAccent,
+      primarySwatch: Colors.red,
       textTheme: const TextTheme(
         titleLarge: TextStyle(
           color: Colors.white,

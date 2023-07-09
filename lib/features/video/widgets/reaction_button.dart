@@ -15,7 +15,7 @@ class ReactionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return TextButton(
         onPressed: () => onPressed(),
         child: Row(
           children: [
