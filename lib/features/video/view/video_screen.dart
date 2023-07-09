@@ -57,6 +57,7 @@ class _VideoScreenState extends State<VideoScreen> {
               final thumbnailPath =
                   widget.videoCardModel.thumbnailPath as String;
               final name = widget.videoCardModel.name as String;
+              final description = widget.videoCardModel.description as String;
               final views = widget.videoCardModel.views as int;
               final publishedAt = widget.videoCardModel.publishedAt as DateTime;
               final channelAvatarPath =
@@ -84,8 +85,9 @@ class _VideoScreenState extends State<VideoScreen> {
                                   : PeertubeImage(
                                       perviewPath: previewPath,
                                       thumbnailPath: thumbnailPath),
-                            HeaderSection(
+                            DescriptionSection(
                                 title: name,
+                                description: description,
                                 views: views,
                                 publishedAt: publishedAt),
                             ChannelSection(
