@@ -7,8 +7,8 @@ import 'package:red_eyes_app/repositories/peertube/peertube_repository.dart';
 import 'app.dart';
 
 void main() {
-  GetIt.I.registerLazySingleton(() =>
-      PeertubeRepository(hostName: "videos.redeyes.site", apiVersion: "v1"));
+  GetIt.I.registerLazySingleton(
+      () => PeertubeRepository(hostName: "peertube.su", apiVersion: "v1"));
   Bloc.transformer = sequential();
 
   runApp(MyApp());

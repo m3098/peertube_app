@@ -17,3 +17,5 @@ class DisposeVideoPlayer extends VideoEvent {}
 class EnterFullScreenVideo extends VideoEvent {}
 
 class ExitFullScreenVideo extends VideoEvent {}
+
+class VideoPause extends VideoEvent {}

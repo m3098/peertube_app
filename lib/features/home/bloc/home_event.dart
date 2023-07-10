@@ -11,15 +11,6 @@ class LoadVideoList extends HomeEvent {
   List<Object?> get props => [completer];
 }
 
-class SetSearchText extends HomeEvent {
-  final String search;
-
-  SetSearchText({required this.search});
-
-  @override
-  List<Object?> get props => [search];
-}
-
 class AddVideoInList extends HomeEvent {
   final int startIndex;
 

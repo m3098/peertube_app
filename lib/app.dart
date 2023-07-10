@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
+import 'package:red_eyes_app/features/search/bloc/search_bloc.dart';
 
 import 'package:red_eyes_app/router/router.dart';
 import 'package:red_eyes_app/theme/theme.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<HomeBloc>(create: (context) => HomeBloc()),
         BlocProvider<VideoBloc>(create: (context) => VideoBloc()),
+        BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
       ],
       child: MaterialApp.router(
         title: 'RED EYE APP',

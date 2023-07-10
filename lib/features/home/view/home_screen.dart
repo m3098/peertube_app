@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:red_eyes_app/features/home/bloc/home_bloc.dart';
 import 'package:rive/rive.dart';
 import '../../appbar/peertube_app_bar.dart';
+import '../../widgets/video_card.dart';
 import '..//widgets/widgets.dart';
 
 import '../../widgets/widgets.dart';

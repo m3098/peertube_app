@@ -55,7 +55,7 @@ class _VideoPreview extends StatelessWidget {
                 ),
               );
               AutoRouter.of(context)
-                  .push(VideoRoute(videoCardModel: videoModel));
+                  .navigate(VideoRoute(videoCardModel: videoModel));
             },
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {

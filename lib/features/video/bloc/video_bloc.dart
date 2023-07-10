@@ -13,7 +13,7 @@ part 'video_event.dart';
 part 'video_state.dart';
 
 class VideoBloc extends Bloc<VideoEvent, VideoState> {
-  late ChewieController chewieController;
+  ChewieController? chewieController;
   late PeertubeVideoFullModel videoModel;
 
   VideoBloc() : super(VideoInitial()) {
@@ -43,7 +43,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
 
           emit(VideoLoaded(
               peertubeVideoFullModel: videoModel,
-              chewieController: chewieController));
+              chewieController: chewieController!));
         } catch (e) {
           emit(VideoLoadingFailed(exception: e));
         }
@@ -51,16 +51,20 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     );
     on<DisposeVideoPlayer>(
       (event, emit) {
-        chewieController.dispose();
-        chewieController.videoPlayerController.dispose();
+        if (chewieController != null) {
+          chewieController!.dispose();
+          chewieController!.videoPlayerController.dispose();
+        }
       },
     );
 
-    on<EnterFullScreenVideo>((event, emit) => emit(VideoLoaded(
-        peertubeVideoFullModel: videoModel,
-        chewieController: chewieController..enterFullScreen())));
-    on<ExitFullScreenVideo>((event, emit) => emit(VideoLoaded(
-        peertubeVideoFullModel: videoModel,
-        chewieController: chewieController..exitFullScreen())));
+    on<VideoPause>(
+      (event, emit) {
+        if (chewieController != null) {
+          chewieController!.pause();
+          chewieController!.videoPlayerController.pause();
+        }
+      },
+    );
   }
 }

@@ -22,15 +22,17 @@ class PeertubeRepository extends AbstractPeertubeRepository {
       List<String> tagsOneOf = const []}) async {
     // ignore: prefer_interpolation_to_compose_strings
 
-    String url = "https://$hostName/api/$apiVersion/videos?"
-        "search=$search"
-        "&count=$count"
-        // "&excludeAlreadyWatched=$excludeAlreadyWatched" +
-        "&hasHLSFiles=$hasHLSFiles"
-        "&isLive=$isLive"
-        "&isLocal=$isLocal"
-        "&nsfw=$nsfw"
-        "&start=$start";
+    String url = search.isEmpty
+        ? "https://$hostName/api/$apiVersion/videos?"
+        : "https://$hostName/api/$apiVersion/search/videos?" +
+            "search=$search"
+                "&count=$count"
+                // "&excludeAlreadyWatched=$excludeAlreadyWatched" +
+                "&hasHLSFiles=$hasHLSFiles"
+                "&isLive=$isLive"
+                "&isLocal=$isLocal"
+                "&nsfw=$nsfw"
+                "&start=$start";
     if (tagsOneOf.isNotEmpty) {
       for (var element in tagsOneOf) {
         url += "&tagsOneOf=$element";
