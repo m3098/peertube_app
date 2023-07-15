@@ -24,9 +24,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           ..addAll(videoList);
 
         emit(VideoListLoaded(
-            videoList: _homePageVideoList,
-            isLoadingMoreVideos: false,
-            searchText: event.searchText));
+          videoList: _homePageVideoList,
+          isLoadingMoreVideos: false,
+          isSearchListEmpty: _homePageVideoList.length < 15 ? true : false,
+          searchText: event.searchText,
+        ));
       } catch (e) {
         emit(VideoListLoadingFailed(exception: e));
       } finally {
@@ -38,16 +40,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(VideoListLoaded(
           searchText: event.searchText,
           videoList: _homePageVideoList,
-          isLoadingMoreVideos: true));
+          isLoadingMoreVideos: true,
+          isSearchListEmpty: false));
       try {
         final videoList = await GetIt.I<PeertubeRepository>()
             .getVideoList(search: event.searchText, start: event.startIndex);
-        _homePageVideoList.addAll(videoList);
 
         emit(VideoListLoaded(
             searchText: event.searchText,
-            videoList: _homePageVideoList,
-            isLoadingMoreVideos: false));
+            videoList: _homePageVideoList..addAll(videoList),
+            isLoadingMoreVideos: false,
+            isSearchListEmpty: videoList.length < 15 ? true : false));
         // ignore: empty_catches
       } catch (e) {}
     });
